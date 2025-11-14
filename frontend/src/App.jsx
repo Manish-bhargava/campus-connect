@@ -11,6 +11,12 @@ import Premium from "./components/Premium";
 import Chat from "./components/Chat";
 import LandingPage from "./components/LandingPage";
 
+import AboutUs from "./pages/AboutUs";
+import ContactUs from "./pages/ContactUs";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TermsAndConditions from "./pages/TermsAndConditions";
+import CancellationRefundPolicy from "./pages/CancellationRefundPolicy";
+import Pricing from "./pages/Pricing";
 function App() {
   return (
     <Provider store={appStore}>
@@ -20,7 +26,12 @@ function App() {
           {/* These pages do NOT have the app's NavBar or Footer */}
           <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<Login />} />
-          
+          <Route path="/about" element={<AboutUs />} />
+<Route path="/contact" element={<ContactUs />} />
+<Route path="/privacy" element={<PrivacyPolicy />} />
+<Route path="/terms" element={<TermsAndConditions />} />
+<Route path="/cancellation-refund" element={<CancellationRefundPolicy />} />
+<Route path="/pricing" element={<Pricing />} />
           {/* --- PROTECTED ROUTES --- */}
           {/* All app pages go inside this <Route> wrapper. */}
           {/* The <Body /> component will check for auth */}
