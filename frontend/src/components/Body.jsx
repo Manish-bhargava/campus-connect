@@ -20,7 +20,7 @@ const Body = () => {
       });
       dispatch(addUser(res.data));
     } catch (err) {
-      if (err.status === 401) {
+      if (err.response?.status === 401) {
         navigate("/login");
       }
       console.error(err);
@@ -31,12 +31,18 @@ const Body = () => {
     fetchUser();
   }, []);
 
+  // Show loading state while checking authentication
+  if (!userData) {
+    return <div>Loading...</div>; // Or a proper loading component
+  }
+
   return (
     <div>
       <NavBar />
-      <Outlet />
-      <Footer />
+      <Outlet /> {/* This will render Feed, Profile, etc. based on the route */}
+      {/* <Footer /> */}
     </div>
   );
 };
+
 export default Body;

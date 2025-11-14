@@ -1,3 +1,38 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+/* Add these to your global CSS file */
+@keyframes swipe-left {
+  0% { transform: translateX(0) rotate(0); opacity: 1; }
+  100% { transform: translateX(-150%) rotate(-30deg); opacity: 0; }
+}
+
+@keyframes swipe-right {
+  0% { transform: translateX(0) rotate(0); opacity: 1; }
+  100% { transform: translateX(150%) rotate(30deg); opacity: 0; }
+}
+
+@keyframes fade-in {
+  0% { opacity: 0; transform: scale(0.9); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+.animate-swipe-left { 
+  animation: swipe-left 0.5s ease-out forwards; 
+}
+
+.animate-swipe-right { 
+  animation: swipe-right 0.5s ease-out forwards; 
+}
+
+.animate-fade-in { 
+  animation: fade-in 0.3s ease-in; 
+}
+
+.perspective { 
+  perspective: 1000px; 
+}
+
+.transform-gpu {
+  transform: translateZ(0);
+}
