@@ -6,14 +6,14 @@ const ConnectionRequest = require("../models/connectionRequest");
 const getSecretRoomId = (userId, targetUserId) => {
   return crypto
     .createHash("sha256")
-    .update([userId, targetUserId].sort().join("$"))
+    .update([userId, targetUserId].sort().join("$$$$$"))
     .digest("hex");
 };
 
 const initializeSocket = (server) => {
   const io = socket(server, {
     cors: {
-      origin: "http://localhost:5173",
+      origin: "http://localhost:5173", // Make sure this is your client's URL
     },
   });
 
@@ -27,12 +27,9 @@ const initializeSocket = (server) => {
     socket.on(
       "sendMessage",
       async ({ firstName, lastName, userId, targetUserId, text }) => {
-        // Save messages to the database
         try {
           const roomId = getSecretRoomId(userId, targetUserId);
-          console.log(firstName + " " + text);
-
-          // TODO: Check if userId & targetUserId are friends
+          console.log(firstName + " sent: " + text);
 
           let chat = await Chat.findOne({
             participants: { $all: [userId, targetUserId] },
@@ -51,14 +48,29 @@ const initializeSocket = (server) => {
           });
 
           await chat.save();
-          io.to(roomId).emit("messageReceived", { firstName, lastName, text });
+          
+          // 🎯 THIS IS THE CRITICAL PART ON THE SERVER
+          // Get the message we just saved to access its real timestamp
+          const savedMessage = chat.messages[chat.messages.length - 1];
+
+          // Use socket.to(roomId) to emit only to *other* people in the room
+          socket.to(roomId).emit("messageReceived", { 
+            senderId: userId,           // Send the senderId
+            firstName, 
+            lastName, 
+            text: savedMessage.text,
+            timestamp: savedMessage.createdAt // Send the database timestamp
+          });
+          
         } catch (err) {
           console.log(err);
         }
       }
     );
 
-    socket.on("disconnect", () => {});
+    socket.on("disconnect", () => {
+      console.log("User disconnected:", socket.id);
+    });
   });
 };
 

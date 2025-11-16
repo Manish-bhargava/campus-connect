@@ -10,9 +10,9 @@ import Requests from "./components/Requests";
 import Premium from "./components/Premium";
 import Chat from "./components/Chat";
 import LandingPage from "./components/LandingPage";
-
-import AboutUs from "./pages/AboutUs";
 import ContactUs from "./pages/ContactUs";
+import AboutUs from "./pages/AboutUs";
+
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsAndConditions from "./pages/TermsAndConditions";
 import CancellationRefundPolicy from "./pages/CancellationRefundPolicy";
@@ -42,8 +42,9 @@ function App() {
             <Route path="connections" element={<Connections />} />
             <Route path="requests" element={<Requests />} />
             <Route path="premium" element={<Premium />} />
-            <Route path="chat/:targetUserId" element={<Chat />} />
+            
           </Route>
+          <Route path="chat/:targetUserId" element={<Chat />} />
         </Routes>
       </BrowserRouter>
     </Provider>

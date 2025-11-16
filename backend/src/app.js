@@ -25,23 +25,23 @@ const profileRouter = require("./routes/profile");
 const requestRouter = require("./routes/request");
 const userRouter = require("./routes/user");
 // const paymentRouter = require("./routes/payment");
-// const initializeSocket = require("./utils/socket");
-// const chatRouter = require("./routes/chat");
-
+const initializeSocket = require("./utils/socket");
+const chatRouter = require("./routes/chat");
+app.use("/", chatRouter);
 app.use("/", authRouter);
 app.use("/", profileRouter);
 app.use("/", requestRouter);
 app.use("/", userRouter);
 // app.use("/", paymentRouter);
-// app.use("/", chatRouter);
 
-// const server = http.createServer(app);
-// initializeSocket(server);
+
+const server = http.createServer(app);
+initializeSocket(server);
 
 connectDB()
   .then(() => {
     console.log("Database connection established...");
-    app.listen(process.env.PORT, () => {
+    server.listen(process.env.PORT, () => {
       console.log("Server is successfully listening on port.",process.env.PORT);
     });
   })
