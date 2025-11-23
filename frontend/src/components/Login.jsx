@@ -1,28 +1,27 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { addUser } from "../utils/userSlice"; // Assuming this path is correct
+import { addUser } from "../utils/userSlice";
 import { useNavigate } from "react-router-dom";
-import { BASE_URL } from "../utils/constants"; // Assuming this path is correct
+import { BASE_URL } from "../utils/constants";
 
 // A helper component for styled inputs
 const Input = ({ label, type = "text", value, onChange }) => (
   <div className="w-full">
-    <label className="block text-sm font-medium text-gray-300 mb-2">
+    <label className="block text-sm font-medium text-gray-700 mb-2">
       {label}
     </label>
     <input
       type={type}
       value={value}
       onChange={(e) => onChange(e.target.value)}
-      className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+      className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all"
       required
     />
   </div>
 );
 
 const LoginPage = () => {
-  // Your existing state
   const [emailId, setEmailId] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -30,11 +29,9 @@ const LoginPage = () => {
   const [isLoginForm, setIsLoginForm] = useState(true);
   const [error, setError] = useState("");
   
-  // Your existing hooks
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // Your existing login/signup handlers
   const handleLogin = async () => {
     try {
       const res = await axios.post(
@@ -60,13 +57,12 @@ const LoginPage = () => {
         { withCredentials: true }
       );
       dispatch(addUser(res.data.data));
-      return navigate("/profile"); // Redirect to profile on new signup
+      return navigate("/profile");
     } catch (err) {
       setError(err?.response?.data || "Something went wrong");
     }
   };
 
-  // Helper to prevent form submission from refreshing the page
   const handleSubmit = (e) => {
     e.preventDefault();
     if (isLoginForm) {
@@ -77,20 +73,20 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 text-gray-200 font-inter flex items-center justify-center p-4 selection:bg-blue-500 selection:text-white">
+    <div className="min-h-screen bg-gradient-to-br from-white to-pink-50 text-gray-800 font-inter flex items-center justify-center p-4 selection:bg-pink-400 selection:text-white">
       <div className="w-full max-w-md">
         
         {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold mb-2">
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-400">
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-orange-500">
               TechBuddy
             </span>
           </h1>
-          <h2 className="text-2xl font-semibold text-white">
+          <h2 className="text-2xl font-semibold text-gray-900">
             {isLoginForm ? "Welcome Back" : "Create Your Account"}
           </h2>
-          <p className="text-gray-400">
+          <p className="text-gray-600">
             {isLoginForm
               ? "Login to find your match."
               : "Sign up to start connecting."}
@@ -98,7 +94,7 @@ const LoginPage = () => {
         </div>
 
         {/* Form Container */}
-        <div className="bg-gray-800/70 backdrop-blur-sm p-8 rounded-xl shadow-2xl border border-gray-700/50">
+        <div className="bg-white/80 backdrop-blur-sm p-8 rounded-xl shadow-2xl border border-gray-200">
           <form onSubmit={handleSubmit} className="space-y-6">
             
             {/* Conditional Sign Up Fields */}
@@ -135,7 +131,7 @@ const LoginPage = () => {
 
             {/* Error Message */}
             {error && (
-              <div className="bg-red-500/10 border border-red-500/30 text-red-300 p-3 rounded-lg text-sm text-center">
+              <div className="bg-red-100 border border-red-300 text-red-700 p-3 rounded-lg text-sm text-center">
                 {error}
               </div>
             )}
@@ -144,7 +140,7 @@ const LoginPage = () => {
             <div>
               <button
                 type="submit"
-                className="w-full group relative inline-flex items-center justify-center px-8 py-3 bg-blue-500 hover:bg-blue-600 text-white font-bold text-base rounded-lg transition-all duration-300 shadow-lg shadow-blue-500/30"
+                className="w-full group relative inline-flex items-center justify-center px-8 py-3 bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 text-white font-bold text-base rounded-full transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
               >
                 {isLoginForm ? "Login" : "Create Account"}
               </button>
@@ -153,14 +149,14 @@ const LoginPage = () => {
 
           {/* Toggle Link */}
           <div className="text-center mt-6">
-            <p className="text-gray-400">
+            <p className="text-gray-600">
               {isLoginForm ? "New to TechBuddy? " : "Already have an account? "}
               <span
                 onClick={() => {
                   setIsLoginForm((value) => !value);
-                  setError(""); // Clear error on toggle
+                  setError("");
                 }}
-                className="font-semibold text-blue-400 hover:text-blue-300 cursor-pointer transition-colors"
+                className="font-semibold text-pink-500 hover:text-pink-600 cursor-pointer transition-colors"
               >
                 {isLoginForm ? "Create an account" : "Log in here"}
               </span>
@@ -171,4 +167,5 @@ const LoginPage = () => {
     </div>
   );
 };
+
 export default LoginPage;

@@ -13,6 +13,7 @@ const validateSignUpData = (req) => {
 
 const validateEditProfileData = (req) => {
   const allowedEditFields = [
+    // Basic info (existing fields - keep these for backward compatibility)
     "firstName",
     "lastName",
     "emailId",
@@ -21,11 +22,67 @@ const validateEditProfileData = (req) => {
     "age",
     "about",
     "skills",
+    
+    // New enhanced fields
+    "headline",
+    "bio",
+    "website",
+    "github",
+    "linkedin",
+    "portfolio",
+    "currentRole",
+    "experienceLevel",
+    "availability"
   ];
 
-  const isEditAllowed = Object.keys(req.body).every((field) =>
-    allowedEditFields.includes(field)
-  );
+  // Also allow nested fields for the enhanced model
+  const allowedNestedFields = [
+    "profile.headline",
+    "profile.bio",
+    "profile.location",
+    "profile.website",
+    "profile.github",
+    "profile.linkedin",
+    "profile.portfolio",
+    "professionalInfo.currentRole",
+    "professionalInfo.experienceLevel",
+    "professionalInfo.openTo",
+    "professionalInfo.availability",
+    "technicalSkills.programmingLanguages",
+    "technicalSkills.frameworks",
+    "technicalSkills.databases",
+    "technicalSkills.tools",
+    "technicalSkills.cloudPlatforms",
+    "projectInterests.types",
+    "projectInterests.teamSize",
+    "projectInterests.commitmentLevel",
+    "matchingPreferences.skillMatchWeight",
+    "matchingPreferences.interestMatchWeight",
+    "matchingPreferences.experienceMatchWeight",
+    "matchingPreferences.locationMatchWeight",
+    "matchingPreferences.preferredTechStack",
+    "matchingPreferences.avoidTechStack",
+    "privacySettings.profileVisibility",
+    "privacySettings.showAge",
+    "privacySettings.showEmail",
+    "privacySettings.showLocation"
+  ];
+
+  const updates = Object.keys(req.body);
+  
+  const isEditAllowed = updates.every((field) => {
+    // Check basic fields
+    if (allowedEditFields.includes(field)) {
+      return true;
+    }
+    
+    // Check nested fields
+    if (allowedNestedFields.some(allowedField => field.startsWith(allowedField.split('.')[0]))) {
+      return true;
+    }
+    
+    return false;
+  });
 
   return isEditAllowed;
 };

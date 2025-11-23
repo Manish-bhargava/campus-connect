@@ -16,14 +16,13 @@ userRouter.get("/user/requests/received", userAuth, async (req, res) => {
       toUserId: loggedInUser._id,
       status: "interested",
     }).populate("fromUserId", USER_SAFE_DATA);
-    // }).populate("fromUserId", ["firstName", "lastName"]);
 
     res.json({
       message: "Data fetched successfully",
       data: connectionRequests,
     });
   } catch (err) {
-    req.statusCode(400).send("ERROR: " + err.message);
+    res.status(400).send("ERROR: " + err.message);
   }
 });
 
@@ -39,8 +38,6 @@ userRouter.get("/user/connections", userAuth, async (req, res) => {
     })
       .populate("fromUserId", USER_SAFE_DATA)
       .populate("toUserId", USER_SAFE_DATA);
-
-    console.log(connectionRequests);
 
     const data = connectionRequests.map((row) => {
       if (row.fromUserId._id.toString() === loggedInUser._id.toString()) {
@@ -66,7 +63,7 @@ userRouter.get("/feed", userAuth, async (req, res) => {
 
     const connectionRequests = await ConnectionRequest.find({
       $or: [{ fromUserId: loggedInUser._id }, { toUserId: loggedInUser._id }],
-    }).select("fromUserId  toUserId");
+    }).select("fromUserId toUserId");
 
     const hideUsersFromFeed = new Set();
     connectionRequests.forEach((req) => {
@@ -89,4 +86,5 @@ userRouter.get("/feed", userAuth, async (req, res) => {
     res.status(400).json({ message: err.message });
   }
 });
+
 module.exports = userRouter;

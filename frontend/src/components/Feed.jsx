@@ -5,35 +5,30 @@ import { BASE_URL } from "../utils/constants";
 import { addFeed, removeUserFromFeed } from "../utils/feedSlice";
 import UserCard from "./UserCard";
 
-// Loading spinner component
+// Compact loading component
 const LoadingFeed = () => (
-  <div className="flex flex-col items-center justify-center p-10 text-center min-h-[70vh]">
-    <div className="relative">
-      <div className="animate-spin rounded-full h-20 w-20 border-t-2 border-b-2 border-red-500 mb-6"></div>
-      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-        <div className="h-8 w-8 bg-red-500 rounded-full animate-pulse"></div>
-      </div>
-    </div>
-    <h2 className="text-2xl font-bold text-white mb-2">Finding Tech Buddies...</h2>
-    <p className="text-gray-400">Loading awesome developers near you</p>
+  <div className="flex flex-col items-center justify-center p-6 text-center min-h-[60vh]">
+    <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-pink-500 mb-4"></div>
+    <h2 className="text-xl font-bold text-gray-900 mb-2">Finding Developers...</h2>
+    <p className="text-gray-600 text-sm">Loading your next tech connection</p>
   </div>
 );
 
-// Empty feed component
+// Compact empty feed component
 const EmptyFeed = () => (
-  <div className="flex flex-col items-center justify-center text-center p-8 min-h-[70vh]">
-    <div className="bg-gradient-to-br from-red-500 to-pink-600 rounded-full p-8 mb-6 shadow-2xl">
-      <svg className="w-16 h-16 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+  <div className="flex flex-col items-center justify-center text-center p-6 min-h-[60vh]">
+    <div className="bg-gradient-to-br from-pink-500 to-orange-500 rounded-full p-6 mb-4">
+      <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
       </svg>
     </div>
-    <h1 className="text-4xl font-bold text-white mb-4">No More Profiles!</h1>
-    <p className="text-xl text-gray-300 mb-6 max-w-md">
-      You've seen all the developers in your area. Check back later for new connections!
+    <h1 className="text-2xl font-bold text-gray-900 mb-3">No More Profiles!</h1>
+    <p className="text-gray-600 mb-4 max-w-sm text-sm">
+      You've seen all available developers. Check back later for new connections!
     </p>
     <button 
       onClick={() => window.location.reload()}
-      className="bg-gradient-to-r from-red-500 to-pink-600 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+      className="bg-gradient-to-r from-pink-500 to-orange-500 text-white font-semibold py-2 px-6 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 text-sm"
     >
       Refresh Feed
     </button>
@@ -132,8 +127,8 @@ const Feed = () => {
 
   // Active State
   const currentUser = feed[0];
-  const rotation = (currentX / 20); // Rotation based on drag
-  const opacity = 1 - Math.min(Math.abs(currentX) / 300, 0.3); // Fade during drag
+  const rotation = (currentX / 20);
+  const opacity = 1 - Math.min(Math.abs(currentX) / 300, 0.3);
 
   const animationClass = exitDirection === "left" 
     ? "animate-swipe-left" 
@@ -142,71 +137,42 @@ const Feed = () => {
     : "";
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-black py-8">
-      {/* Header */}
-      <div className="container mx-auto px-4 mb-8">
+    <div className="min-h-screen bg-gradient-to-br from-white to-pink-50 py-4">
+      {/* Compact Header */}
+      <div className="container mx-auto px-4 mb-4">
         <div className="flex justify-between items-center">
-          <div className="flex items-center space-x-4">
-            <div className="bg-gradient-to-r from-red-500 to-pink-600 p-3 rounded-full shadow-lg">
-              <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+          <div className="flex items-center space-x-3">
+            <div className="bg-gradient-to-r from-pink-500 to-orange-500 p-2 rounded-full shadow-lg">
+              <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
               </svg>
             </div>
-            <h1 className="text-3xl font-bold text-white">TechBuddy</h1>
+            <div>
+              <h1 className="text-xl font-bold text-gray-900">TechBuddy</h1>
+              <p className="text-xs text-gray-600">Find your coding partner</p>
+            </div>
           </div>
-          <div className="text-white">
-            <span className="bg-red-500 text-white px-3 py-1 rounded-full text-sm font-bold">
-              {feed.length} {feed.length === 1 ? 'Profile' : 'Profiles'}
-            </span>
+          <div className="bg-pink-500 text-white px-3 py-1 rounded-full text-xs font-bold">
+            {feed.length} {feed.length === 1 ? 'Profile' : 'Profiles'}
           </div>
         </div>
       </div>
 
-      {/* Main Card Area */}
+      {/* Main Card Area - More Compact */}
       <div className="container mx-auto px-4">
         <div className="max-w-md mx-auto">
-          {/* Action Buttons */}
-          <div className="flex justify-center space-x-8 mb-8">
-            <button
-              onClick={() => handleSendRequest("ignored", currentUser._id)}
-              className="w-16 h-16 bg-gray-700 rounded-full flex items-center justify-center shadow-lg hover:bg-gray-600 transform hover:scale-110 transition-all duration-200"
-            >
-              <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-            
-            <button
-              onClick={() => handleSendRequest("interested", currentUser._id)}
-              className="w-20 h-20 bg-gradient-to-r from-red-500 to-pink-600 rounded-full flex items-center justify-center shadow-xl hover:shadow-2xl transform hover:scale-110 transition-all duration-200"
-            >
-              <svg className="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
-              </svg>
-            </button>
-            
-            <button
-              onClick={() => window.location.reload()}
-              className="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center shadow-lg hover:bg-blue-600 transform hover:scale-110 transition-all duration-200"
-            >
-              <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-              </svg>
-            </button>
-          </div>
-
-          {/* User Card with Drag */}
-          <div className="relative">
+          {/* User Card with Drag - Reduced spacing */}
+          <div className="relative mb-4">
             {/* Swipe Indicators */}
             {isDragging && (
               <>
                 {currentX > 50 && (
-                  <div className="absolute top-8 left-8 z-20 bg-green-500 text-white px-4 py-2 rounded-full font-bold transform rotate-12 shadow-lg">
+                  <div className="absolute top-4 left-4 z-20 bg-green-500 text-white px-3 py-1 rounded-full font-bold transform rotate-12 shadow-lg text-sm">
                     LIKE
                   </div>
                 )}
                 {currentX < -50 && (
-                  <div className="absolute top-8 right-8 z-20 bg-red-500 text-white px-4 py-2 rounded-full font-bold transform -rotate-12 shadow-lg">
+                  <div className="absolute top-4 right-4 z-20 bg-red-500 text-white px-3 py-1 rounded-full font-bold transform -rotate-12 shadow-lg text-sm">
                     PASS
                   </div>
                 )}
@@ -231,25 +197,77 @@ const Feed = () => {
               />
             </div>
 
-            {/* Next Card Preview */}
+            {/* Next Card Preview - Smaller */}
             {feed.length > 1 && (
-              <div className="absolute top-4 -z-10 w-full h-full">
-                <div className="bg-gray-800 rounded-2xl h-full transform scale-95 opacity-60 border-2 border-gray-700"></div>
+              <div className="absolute top-2 -z-10 w-full h-full">
+                <div className="bg-gray-100 rounded-2xl h-full transform scale-95 opacity-40 border border-gray-200"></div>
               </div>
             )}
           </div>
 
-          {/* Instructions */}
-          <div className="text-center mt-8">
-            <p className="text-gray-400 text-sm">
+          {/* Compact Action Buttons */}
+          <div className="flex justify-center space-x-6 mb-4">
+            <button
+              onClick={() => handleSendRequest("ignored", currentUser._id)}
+              className="w-14 h-14 bg-gray-200 rounded-full flex items-center justify-center shadow-lg hover:bg-gray-300 transform hover:scale-110 transition-all duration-200"
+            >
+              <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+            
+            <button
+              onClick={() => handleSendRequest("interested", currentUser._id)}
+              className="w-16 h-16 bg-gradient-to-r from-pink-500 to-orange-500 rounded-full flex items-center justify-center shadow-xl hover:shadow-2xl transform hover:scale-110 transition-all duration-200"
+            >
+              <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
+              </svg>
+            </button>
+            
+            <button
+              onClick={() => window.location.reload()}
+              className="w-14 h-14 bg-blue-500 rounded-full flex items-center justify-center shadow-lg hover:bg-blue-600 transform hover:scale-110 transition-all duration-200"
+            >
+              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+              </svg>
+            </button>
+          </div>
+
+          {/* Compact Instructions */}
+          <div className="text-center">
+            <p className="text-gray-600 text-xs mb-1">
               Swipe right to like • Swipe left to pass
             </p>
-            <p className="text-gray-500 text-xs mt-2">
-              Or use the buttons above
+            <p className="text-gray-500 text-xs">
+              Or use the action buttons
             </p>
           </div>
         </div>
       </div>
+
+      {/* Quick Stats Bar */}
+      {feed.length > 0 && (
+        <div className="container mx-auto px-4 mt-6">
+          <div className="max-w-md mx-auto bg-white rounded-lg p-3 shadow-sm border border-gray-200">
+            <div className="flex justify-between items-center text-xs">
+              <div className="text-center">
+                <div className="font-bold text-gray-900">{feed.length}</div>
+                <div className="text-gray-600">Remaining</div>
+              </div>
+              <div className="text-center">
+                <div className="font-bold text-green-500">Today</div>
+                <div className="text-gray-600">New</div>
+              </div>
+              <div className="text-center">
+                <div className="font-bold text-blue-500">∞</div>
+                <div className="text-gray-600">Potential</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -61,14 +61,14 @@ const NavBar = () => {
   // Show loading state while user data is being fetched
   if (!user) {
     return (
-      <nav className="w-full bg-gray-800 border-b border-gray-700 shadow-lg z-50">
+      <nav className="w-full bg-white border-b border-gray-200 shadow-lg z-50">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
           <Link to="/feed" className="text-3xl font-bold">
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-400">
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-orange-500">
               TechBuddy
             </span>
           </Link>
-          <div className="h-10 w-10 rounded-full bg-gray-700 animate-pulse"></div>
+          <div className="h-10 w-10 rounded-full bg-gray-300 animate-pulse"></div>
         </div>
       </nav>
     );
@@ -76,19 +76,19 @@ const NavBar = () => {
 
   const onPhotoError = (e) => {
     const initials = user.firstName?.charAt(0) + user.lastName?.charAt(0) || 'U';
-    e.target.src = `https://placehold.co/40x40/60a5fa/ffffff?text=${initials}`;
+    e.target.src = `https://placehold.co/40x40/ec4899/ffffff?text=${initials}`;
     e.target.onerror = null;
   };
 
   return (
-    <nav className="w-full bg-gray-800 border-b border-gray-700 shadow-lg z-50 sticky top-0">
+    <nav className="w-full bg-white border-b border-gray-200 shadow-lg z-50 sticky top-0">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           
           {/* Logo */}
           <div className="flex-shrink-0">
             <Link to="/feed" className="text-3xl font-bold">
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-400">
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-orange-500">
                 TechBuddy
               </span>
             </Link>
@@ -96,18 +96,18 @@ const NavBar = () => {
 
           {/* Main Nav Links - Hidden on small screens */}
           <div className="hidden md:flex md:items-center md:space-x-6">
-            <Link to="/feed" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">
+            <Link to="/feed" className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium transition-colors">
               Feed
             </Link>
-            <Link to="/connections" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">
+            <Link to="/connections" className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium transition-colors">
               Connections
             </Link>
-            <Link to="/requests" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">
+            <Link to="/requests" className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium transition-colors">
               Requests
             </Link>
-            <Link to="/premium" className="text-blue-400 hover:text-blue-300 px-3 py-2 rounded-md text-sm font-bold transition-colors">
+            {/* <Link to="/premium" className="text-pink-500 hover:text-pink-600 px-3 py-2 rounded-md text-sm font-bold transition-colors">
               Premium
-            </Link>
+            </Link> */}
           </div>
 
           {/* Profile Dropdown */}
@@ -115,42 +115,42 @@ const NavBar = () => {
             <div className="relative" ref={dropdownRef}>
               <button
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                className="flex items-center text-sm rounded-full text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-blue-500"
+                className="flex items-center text-sm rounded-full text-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-pink-500"
               >
                 <span className="sr-only">Open user menu</span>
                 <img
-                  className="h-10 w-10 rounded-full object-cover border-2 border-gray-700"
+                  className="h-10 w-10 rounded-full object-cover border-2 border-gray-300"
                   src={user.photoUrl}
                   alt="User avatar"
                   onError={onPhotoError}
                 />
-                <span className="hidden md:block ml-3 text-gray-300 font-medium">
+                <span className="hidden md:block ml-3 text-gray-700 font-medium">
                   {user.firstName}
                 </span>
-                <ChevronDownIcon className="hidden md:block w-4 h-4 ml-1 text-gray-400" />
+                <ChevronDownIcon className="hidden md:block w-4 h-4 ml-1 text-gray-500" />
               </button>
 
               {/* Dropdown Menu */}
               {isDropdownOpen && (
                 <div
-                  className="origin-top-right absolute right-0 mt-2 w-56 rounded-xl shadow-lg bg-gray-700 ring-1 ring-black ring-opacity-5 focus:outline-none"
+                  className="origin-top-right absolute right-0 mt-2 w-56 rounded-xl shadow-lg bg-white ring-1 ring-gray-200 focus:outline-none"
                   role="menu"
                   aria-orientation="vertical"
                   aria-labelledby="user-menu-button"
                 >
                   <div className="py-1" role="none">
-                    <div className="px-4 py-3 border-b border-gray-600">
-                      <p className="text-sm text-white font-medium truncate">
+                    <div className="px-4 py-3 border-b border-gray-100">
+                      <p className="text-sm text-gray-900 font-medium truncate">
                         {user.firstName} {user.lastName}
                       </p>
-                      <p className="text-xs text-gray-400 truncate">
+                      <p className="text-xs text-gray-500 truncate">
                         {user.email || 'No email provided'}
                       </p>
                     </div>
                     <Link
                       to="/profile"
                       onClick={() => setIsDropdownOpen(false)}
-                      className="flex items-center text-gray-300 hover:bg-gray-600 hover:text-white px-4 py-3 text-sm"
+                      className="flex items-center text-gray-700 hover:bg-gray-50 hover:text-gray-900 px-4 py-3 text-sm"
                       role="menuitem"
                     >
                       <UserIcon className="w-5 h-5 mr-3" />
@@ -161,7 +161,7 @@ const NavBar = () => {
                         setIsDropdownOpen(false);
                         handleLogout();
                       }}
-                      className="flex items-center w-full text-left text-red-400 hover:bg-red-500/20 hover:text-red-300 px-4 py-3 text-sm"
+                      className="flex items-center w-full text-left text-red-500 hover:bg-red-50 hover:text-red-600 px-4 py-3 text-sm"
                       role="menuitem"
                     >
                       <LogoutIcon className="w-5 h-5 mr-3" />
@@ -177,18 +177,18 @@ const NavBar = () => {
       </div>
 
       {/* Mobile Nav Links - Hidden on medium+ screens */}
-      <div className="md:hidden bg-gray-800 border-t border-gray-700">
+      <div className="md:hidden bg-white border-t border-gray-200">
         <div className="flex justify-around items-center px-2 py-2 space-x-1">
-            <Link to="/feed" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">
+            <Link to="/feed" className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium transition-colors">
               Feed
             </Link>
-            <Link to="/connections" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">
+            <Link to="/connections" className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium transition-colors">
               Connections
             </Link>
-            <Link to="/requests" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">
+            <Link to="/requests" className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium transition-colors">
               Requests
             </Link>
-            <Link to="/premium" className="text-blue-400 hover:text-blue-300 px-3 py-2 rounded-md text-sm font-bold transition-colors">
+            <Link to="/premium" className="text-pink-500 hover:text-pink-600 px-3 py-2 rounded-md text-sm font-bold transition-colors">
               Premium
             </Link>
         </div>

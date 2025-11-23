@@ -43,23 +43,27 @@ console.log(req.body);
 authRouter.post("/login", async (req, res) => {
   try {
     const { emailId, password } = req.body;
-
+     console.log(emailId, password);
     const user = await User.findOne({ emailId: emailId });
+    console.log(user);
     if (!user) {
+      console.log("user is error");
       throw new Error("Invalid credentials");
     }
-    const isPasswordValid = await user.validatePassword(password);
+       const isPasswordValid = await bcrypt.compare(password, user.password);
 
     if (isPasswordValid) {
+         console.log("passwrod to valid hai");
       const token = await user.getJWT();
 
       res.cookie("token", token, {
          httpOnly: true,
         secure: false,  // should be false for localhost
-  sameSite: "lax",
+  
         expires: new Date(Date.now() + 8 * 3600000),
       });
-      res.send(user);
+
+      res.json(user);
     } else {
       throw new Error("Invalid credentials");
     }

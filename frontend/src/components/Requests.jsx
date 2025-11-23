@@ -53,26 +53,26 @@ const Requests = () => {
   // Loading state
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-900 to-black py-8">
+      <div className="min-h-screen bg-gradient-to-br from-white to-pink-50 py-8">
         <div className="container mx-auto px-4">
           <div className="text-center mb-8">
-            <h1 className="text-4xl font-bold text-white mb-2">Connection Requests</h1>
-            <p className="text-gray-400">Loading your requests...</p>
+            <h1 className="text-4xl font-bold text-gray-900 mb-2">Connection Requests</h1>
+            <p className="text-gray-600">Loading your requests...</p>
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-4xl mx-auto">
             {[...Array(4)].map((_, i) => (
-              <div key={i} className="bg-gray-800 rounded-2xl p-6 animate-pulse">
+              <div key={i} className="bg-white rounded-2xl p-6 animate-pulse border border-gray-200">
                 <div className="flex items-center space-x-4 mb-4">
-                  <div className="w-16 h-16 bg-gray-700 rounded-full"></div>
+                  <div className="w-16 h-16 bg-gray-300 rounded-full"></div>
                   <div className="flex-1">
-                    <div className="h-5 bg-gray-700 rounded w-3/4 mb-2"></div>
-                    <div className="h-3 bg-gray-700 rounded w-1/2 mb-2"></div>
-                    <div className="h-3 bg-gray-700 rounded w-full"></div>
+                    <div className="h-5 bg-gray-300 rounded w-3/4 mb-2"></div>
+                    <div className="h-3 bg-gray-300 rounded w-1/2 mb-2"></div>
+                    <div className="h-3 bg-gray-300 rounded w-full"></div>
                   </div>
                 </div>
                 <div className="flex space-x-3">
-                  <div className="h-10 bg-gray-700 rounded flex-1"></div>
-                  <div className="h-10 bg-gray-700 rounded flex-1"></div>
+                  <div className="h-10 bg-gray-300 rounded flex-1"></div>
+                  <div className="h-10 bg-gray-300 rounded flex-1"></div>
                 </div>
               </div>
             ))}
@@ -85,23 +85,23 @@ const Requests = () => {
   // Empty state
   if (!requests || requests.length === 0) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-900 to-black py-8">
+      <div className="min-h-screen bg-gradient-to-br from-white to-pink-50 py-8">
         <div className="container mx-auto px-4">
           <div className="text-center">
             <div className="max-w-md mx-auto">
-              <div className="bg-gradient-to-br from-purple-500 to-pink-600 rounded-full p-8 inline-block mb-6">
+              <div className="bg-gradient-to-br from-pink-500 to-orange-500 rounded-full p-8 inline-block mb-6">
                 <svg className="w-16 h-16 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
                 </svg>
               </div>
-              <h1 className="text-4xl font-bold text-white mb-4">No Pending Requests</h1>
-              <p className="text-gray-300 text-lg mb-8">
+              <h1 className="text-4xl font-bold text-gray-900 mb-4">No Pending Requests</h1>
+              <p className="text-gray-600 text-lg mb-8">
                 You're all caught up! When someone sends you a connection request, it will appear here.
               </p>
               <div className="flex justify-center space-x-4">
                 <button 
                   onClick={fetchRequests}
-                  className="bg-gray-700 text-white font-semibold py-3 px-6 rounded-xl hover:bg-gray-600 transform hover:scale-105 transition-all duration-300"
+                  className="bg-gray-200 text-gray-700 font-semibold py-3 px-6 rounded-xl hover:bg-gray-300 transform hover:scale-105 transition-all duration-300"
                 >
                   Refresh
                 </button>
@@ -114,12 +114,12 @@ const Requests = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-black py-8">
+    <div className="min-h-screen bg-gradient-to-br from-white to-pink-50 py-8">
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-white mb-2">Connection Requests</h1>
-          <p className="text-gray-400 text-lg">
+          <h1 className="text-4xl font-bold text-gray-900 mb-2">Connection Requests</h1>
+          <p className="text-gray-600 text-lg">
             You have {requests.length} pending request{requests.length !== 1 ? 's' : ''}
           </p>
         </div>
@@ -132,21 +132,21 @@ const Requests = () => {
 
             const handleImageError = (e) => {
               const initials = `${firstName?.charAt(0)}${lastName?.charAt(0)}`;
-              e.target.src = `https://placehold.co/200x200/1f2937/9ca3af?text=${initials}`;
+              e.target.src = `https://placehold.co/200x200/f3f4f6/6b7280?text=${initials}`;
               e.target.onerror = null;
             };
 
             return (
               <div
                 key={request._id}
-                className="bg-gray-800/70 backdrop-blur-sm rounded-2xl p-6 border border-gray-700/50 shadow-xl hover:shadow-2xl transition-all duration-300 relative"
+                className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-gray-200 shadow-xl hover:shadow-2xl transition-all duration-300 relative"
               >
                 {/* Processing Overlay */}
                 {isProcessing && (
-                  <div className="absolute inset-0 bg-gray-900/80 rounded-2xl flex items-center justify-center z-10">
+                  <div className="absolute inset-0 bg-white/90 rounded-2xl flex items-center justify-center z-10">
                     <div className="text-center">
-                      <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500 mx-auto mb-2"></div>
-                      <p className="text-white text-sm">Processing...</p>
+                      <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-pink-500 mx-auto mb-2"></div>
+                      <p className="text-gray-700 text-sm">Processing...</p>
                     </div>
                   </div>
                 )}
@@ -155,21 +155,21 @@ const Requests = () => {
                 <div className="flex items-start space-x-4 mb-4">
                   <img
                     alt={`${firstName} ${lastName}`}
-                    className="w-16 h-16 rounded-full object-cover border-2 border-purple-500"
+                    className="w-16 h-16 rounded-full object-cover border-2 border-pink-500"
                     src={photoUrl}
                     onError={handleImageError}
                   />
                   <div className="flex-1">
-                    <h2 className="font-bold text-xl text-white mb-1">
+                    <h2 className="font-bold text-xl text-gray-900 mb-1">
                       {firstName} {lastName}
                     </h2>
                     {(age || gender) && (
-                      <p className="text-purple-400 text-sm mb-2">
+                      <p className="text-pink-500 text-sm mb-2">
                         {age && `${age} years`}{age && gender && ' • '}{gender}
                       </p>
                     )}
                     {about && (
-                      <p className="text-gray-300 text-sm line-clamp-2">
+                      <p className="text-gray-600 text-sm line-clamp-2">
                         {about}
                       </p>
                     )}
@@ -183,13 +183,13 @@ const Requests = () => {
                       {skills.slice(0, 4).map((skill, index) => (
                         <span
                           key={index}
-                          className="bg-purple-500/20 text-purple-300 px-2 py-1 rounded-full text-xs"
+                          className="bg-pink-500/20 text-pink-700 px-2 py-1 rounded-full text-xs"
                         >
                           {skill}
                         </span>
                       ))}
                       {skills.length > 4 && (
-                        <span className="bg-gray-700 text-gray-300 px-2 py-1 rounded-full text-xs">
+                        <span className="bg-gray-200 text-gray-600 px-2 py-1 rounded-full text-xs">
                           +{skills.length - 4}
                         </span>
                       )}
@@ -241,7 +241,7 @@ const Requests = () => {
         <div className="text-center mt-8">
           <button 
             onClick={fetchRequests}
-            className="bg-gray-700 text-white font-semibold py-3 px-6 rounded-xl hover:bg-gray-600 transform hover:scale-105 transition-all duration-300"
+            className="bg-gray-200 text-gray-700 font-semibold py-3 px-6 rounded-xl hover:bg-gray-300 transform hover:scale-105 transition-all duration-300"
           >
             Refresh Requests
           </button>
