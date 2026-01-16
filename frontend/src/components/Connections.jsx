@@ -31,11 +31,19 @@ const Connections = () => {
   }, []);
 
   // Filter connections based on search
-  const filteredConnections = connections?.filter(connection =>
-    connection.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    connection.lastName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    connection.about?.toLowerCase().includes(searchTerm.toLowerCase())
+const term = searchTerm.toLowerCase();
+
+const filteredConnections = connections?.filter(connection => {
+  const firstName = connection?.firstName?.toLowerCase() || "";
+  const lastName = connection?.lastName?.toLowerCase() || "";
+  const about = connection?.about?.toLowerCase() || "";
+
+  return (
+    firstName.includes(term) ||
+    lastName.includes(term) ||
+    about.includes(term)
   );
+});
 
   // Loading state
   if (isLoading) {

@@ -207,6 +207,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: "https://geographyandyou.com/images/user-profile.png",
       validate(value) {
+        if (!value) return true;
         if (!validator.isURL(value)) {
           throw new Error("Invalid Photo URL: " + value);
         }
@@ -324,25 +325,5 @@ userSchema.methods.isProfileComplete = function() {
   return this.profileCompletion.percentage >= 80;
 };
 
-// Static methods
-// userSchema.statics.findByEmail = function(email) {
-//   return this.findOne({ emailId: email.toLowerCase() });
-// };
-
-// userSchema.statics.findByTechStack = function(techStack) {
-//   return this.find({
-//     $or: [
-//       { "technicalSkills.programmingLanguages.name": { $in: techStack } },
-//       { "technicalSkills.frameworks": { $in: techStack } },
-//       { "matchingPreferences.preferredTechStack": { $in: techStack } }
-//     ]
-//   });
-// };
-
-// userSchema.statics.getTopRated = function(limit = 10) {
-//   return this.find({ "socialStats.rating": { $gte: 4 } })
-//     .sort({ "socialStats.rating": -1, "socialStats.reviewsCount": -1 })
-//     .limit(limit);
-// };
 
 module.exports = mongoose.model("User", userSchema);

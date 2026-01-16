@@ -4,6 +4,7 @@ const app = express();
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const http = require("http");
+// TOP of app.js
 
 require("dotenv").config();
 

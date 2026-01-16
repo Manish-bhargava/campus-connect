@@ -49,7 +49,7 @@ const LandingPage = () => {
   const navigate = useNavigate();
   const handleLogin = () => {
     navigate("/login")
-    alert("This is where your GitHub OAuth flow would be triggered.");
+  
   };
 
   const FeatureCard = ({ icon, title, children }) => (
